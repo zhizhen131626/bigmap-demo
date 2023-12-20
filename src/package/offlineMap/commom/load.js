@@ -8,24 +8,17 @@ const onloadFile = function (HTTP_URL) {
     } else {
       const script = [
         `${HTTP_URL}/bigemap.js/v2.1.0/bigemap.js`,
-        // '/static/mouse_draw/bm.draw.min.js',
-        // '/static/cluster/bm.markercluster-src.js'
+        'bm.draw.min.js',
+        'bm.markercluster-src.js'
         // 如果有更多的JS要引用 ，也一起放到这个数组中
       ]
       // 换成本地的服务器css文件即可
       // link.href = "http://www.bigemap.com:9000/bigemap.js/v2.1.0/bigemap.css";
       const cssFile = [
         `${HTTP_URL}/bigemap.js/v2.1.0/bigemap.css`,
-        // '/static/mouse_draw/Bigemap.draw.css',
-        // '/static/cluster/MarkerCluster.Default.css'
+        'Bigemap.draw.css',
+        'MarkerCluster.Default.css'
       ]
-      cssFile.forEach((item) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.async = false
-        link.href = item
-        document.head.appendChild(link)
-      })
       const loads = script.map((v) => {
         const scri = document.createElement('script')
         scri.type = 'text/javascript'
@@ -33,6 +26,13 @@ const onloadFile = function (HTTP_URL) {
         scri.src = v
         document.head.appendChild(scri)
         return scri
+      })
+      cssFile.forEach((item) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.async = false
+        link.href = item
+        document.head.appendChild(link)
       })
       const end = loads.pop()
       end.onload = resolve
